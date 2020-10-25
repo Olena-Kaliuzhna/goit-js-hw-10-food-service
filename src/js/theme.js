@@ -5,26 +5,41 @@ const theme = {
 
 const bodyEl = document.querySelector('body');
 const checkBoxEl = document.querySelector('#theme-switch-toggle');
-const STORAGE_KEY = 'lightTheme';
-const savedTheme = localStorage.getItem(STORAGE_KEY);
 
 bodyEl.classList.add(theme.LIGHT);
+
+
 checkBoxEl.addEventListener('change', onCheckBoxChange);
 
-if (savedTheme === '') {
-  bodyEl.classList.add(theme.LIGHT);
+currentTheme();
+
+function currentTheme(event) {
+  if (localStorage.getItem('theme') === null) {
+    bodyEl.classList.add(theme.LIGHT);
+    localStorage.setItem("theme", theme.LIGHT)
+  };
+     
+  if (localStorage.getItem('theme') === theme.DARK) {
+    checkBoxEl.checked = true;
+    bodyEl.classList.add(theme.DARK);
+  } else {
+    checkBoxEl.checked = false;
+    bodyEl.classList.add(theme.LIGHT);
+  };
+
 }
 
-if (savedTheme === 'false') {
-  bodyEl.classList.remove(theme.LIGHT);
-  bodyEl.classList.add(theme.DARK);
-  checkBoxEl.checked = true;
-}
-
-function onCheckBoxChange(evt) {
-  bodyEl.classList.toggle(theme.LIGHT);
-  bodyEl.classList.toggle(theme.DARK);
-
-  const isLight = bodyEl.classList.contains(theme.LIGHT);
-  localStorage.setItem(STORAGE_KEY, isLight);
+function onCheckBoxChange(evt) { 
+  
+  if (evt.target.checked) {
+    bodyEl.classList.remove(theme.LIGHT);
+    bodyEl.classList.add(theme.DARK);
+    localStorage.setItem("theme", theme.DARK);
+        
+  } else {
+    bodyEl.classList.remove(theme.DARK);
+    bodyEl.classList.add(theme.LIGHT);
+    localStorage.setItem("theme", theme.LIGHT);
+    
+  };
 }
