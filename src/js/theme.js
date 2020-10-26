@@ -6,7 +6,7 @@ const theme = {
 const bodyEl = document.querySelector('body');
 const checkBoxEl = document.querySelector('#theme-switch-toggle');
 
-bodyEl.classList.add(theme.LIGHT);
+
 
 
 checkBoxEl.addEventListener('change', onCheckBoxChange);
